@@ -29,10 +29,7 @@ def readData(fname):
     newY, edge= np.histogram(data.X, weights=data.Y, bins=int(len(data.X)/binFrac))
 
     # get new x
-    newX = []
-    for i in range(len(edge)-1):
-        newX.append((edge[i]+edge[i+1])/2)
-
+    newX = [(edge[i]+edge[i+1])/2 for i in range(len(edge)-1)]
     # save new data in a Pandassssss dataframe
     data = pd.DataFrame(list(zip(newX,newY)), columns=['X','Y'])
 

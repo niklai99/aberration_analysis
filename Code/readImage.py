@@ -93,7 +93,7 @@ def main(argv):
             # print("Entries", np.sum(proj))
 
             # override plot data
-            xhist1D = range(0, npixels)
+            xhist1D = range(npixels)
             projMin = 0
             projMax = npixels
             YMIN = 0
@@ -107,7 +107,6 @@ def main(argv):
                 np.savetxt(fname = dataPath + name + '.txt', X = np.c_[xhist1D, proj], delimiter = '\t')
 
 
-     # make 2D hist data arrays
     x = np.arange(0,npixels+1,1)
     y = np.arange(0,ncolumns+1,1)
 

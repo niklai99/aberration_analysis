@@ -23,10 +23,7 @@ filenames = [
 # read data from txt file
 def readData(fname):
 
-    # read raw data
-    data = np.loadtxt(dataPath + fname, delimiter=';')
-
-    return data
+    return np.loadtxt(dataPath + fname, delimiter=';')
 
 
 def lin(x, a, b):
@@ -40,20 +37,10 @@ def cub(x, a, b, c, d):
 
 
 def chi2(x, y, a, b, c, d):
-    chisq=0
-
-    for i in range(len(x)):
-        chisq += (y[i] - (a*x[i]**3+b*x[i]**2+c*x[i]+d))**2
-
-    return chisq
+    return sum((y[i] - (a*x[i]**3+b*x[i]**2+c*x[i]+d))**2 for i in range(len(x)))
 
 def chi22(x, y, a, b, c):
-    chisq=0
-
-    for i in range(len(x)):
-        chisq += (y[i] - (a*x[i]**2+b*x[i]+c))**2
-
-    return chisq
+    return sum((y[i] - (a*x[i]**2+b*x[i]+c))**2 for i in range(len(x)))
 
 
 # ABERRATION ANALYSIS 
@@ -113,11 +100,7 @@ def spacingTrend(data):
 
 def main(argv):
 
-    data = []        
-    for i, fname in enumerate(filenames):
-        data.append(readData(fname))
-
-    
+    data = [readData(fname) for fname in filenames]
     fig, ax1, par, parr = spacingTrend(data)
 
     fig2, ax2 = plt.subplots(nrows=3, ncols=3, squeeze=False, figsize=(18.5, 12))

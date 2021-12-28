@@ -17,10 +17,7 @@ binFrac=3 # nBins_new = nBins_old / binFrac
 # read data from txt file
 def readData(fname):
 
-    # read raw data
-    data = np.loadtxt(dataPath + fname + '_data.txt', delimiter=';')
-
-    return data
+    return np.loadtxt(dataPath + fname + '_data.txt', delimiter=';')
 
 
 def lin(x, a, b):

@@ -29,10 +29,7 @@ def readData(fname):
     newY, edge= np.histogram(data.X, weights=data.Y, bins=int(len(data.X)/binFrac))
 
     # get new x
-    newX = []
-    for i in range(len(edge)-1):
-        newX.append((edge[i]+edge[i+1])/2)
-
+    newX = [(edge[i]+edge[i+1])/2 for i in range(len(edge)-1)]
     # save new data in a Pandassssss dataframe
     data = pd.DataFrame(list(zip(newX,newY)), columns=['X','Y'])
 
@@ -159,36 +156,24 @@ def select_skip(iterable, select, skip):
 
 def computeSpacing(Peaks):
 
-    C = []
-    Spacing = []
-
-    for i in range(1, len(Peaks)):
-        C.append(Peaks[i] - Peaks[i-1])
-
-    for i in range(1, len(C)):
-        Spacing.append((C[i] + C[i-1]) / 2)
-
-    return Spacing
+    C = [Peaks[i] - Peaks[i-1] for i in range(1, len(Peaks))]
+    return [(C[i] + C[i-1]) / 2 for i in range(1, len(C))]
 
 
 def computeDeltaLru():
-    dLru = LAMBDA**2 / (2*d) # nanometers
-    return dLru
+    return LAMBDA**2 / (2*d)
 
 def computeDeltaLambda(dXru, dLru, FWHM):
-    dL = (np.array(FWHM) * dLru) / np.array(dXru) # nanometers
-    return dL
+    return (np.array(FWHM) * dLru) / np.array(dXru)
 
 
 def computeResolvingPower(dL):
-    R = LAMBDA / np.array(dL)
-    return R
+    return LAMBDA / np.array(dL)
 
 
 def computeRMS(R, avgR):
     MSE = np.sum( (np.array(R) - avgR)**2 ) / (len(R) - 1)
-    RMSE = np.sqrt(MSE)
-    return RMSE
+    return np.sqrt(MSE)
 
 
 

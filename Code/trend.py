@@ -15,10 +15,7 @@ outputPath = '../Plots/trends/'
 # read data from txt file
 def readData(fname):
 
-    # read raw data
-    data = np.loadtxt(dataPath + fname + '_data.txt', delimiter=';')
-
-    return data
+    return np.loadtxt(dataPath + fname + '_data.txt', delimiter=';')
 
 
 def lin(x, a, b):
@@ -86,7 +83,7 @@ def main(argv):
         fig, ax1, ax2 = spacingTrend(data[:,0], data[:,1], data[:,2])
         fig.savefig(outputPath + fname + '_trend.png', dpi = 500, facecolor = 'white')
 
-    elif len(argv) == 0:
+    else:
         for i in range(4, 10):
             fname = 'scan_585_z1_0%s' % (i)
             data = readData(fname)
