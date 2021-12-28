@@ -25,10 +25,7 @@ def readData(fname):
     newY, edge= np.histogram(data.X, weights=data.Y, bins=int(len(data.X)/binFrac))
 
     # get new x
-    newX = []
-    for i in range(len(edge)-1):
-        newX.append((edge[i]+edge[i+1])/2)
-
+    newX = [(edge[i]+edge[i+1])/2 for i in range(len(edge)-1)]
     # save new data in a Pandassssss dataframe
     data = pd.DataFrame(list(zip(newX,newY)), columns=['X','Y'])
 
@@ -153,16 +150,8 @@ def select_skip(iterable, select, skip):
 
 def computeSpacing(Peaks):
 
-    C = []
-    Spacing = []
-
-    for i in range(1, len(Peaks)):
-        C.append(Peaks[i] - Peaks[i-1])
-
-    for i in range(1, len(C)):
-        Spacing.append((C[i] + C[i-1]) / 2)
-
-    return Spacing
+    C = [Peaks[i] - Peaks[i-1] for i in range(1, len(Peaks))]
+    return [(C[i] + C[i-1]) / 2 for i in range(1, len(C))]
 
 
 
